@@ -18,84 +18,105 @@
     <ClInclude Include="Build\Resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Core\Engine\Engine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Math\MathHelper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Build\Targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ThirdParty\DirextXMath\Extensions\DirectXMathAVX.h">
+    <ClInclude Include="ThirdParty\DirectXMath\Extensions\DirectXMathAVX.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ThirdParty\DirextXMath\Extensions\DirectXMathAVX2.h">
+    <ClInclude Include="ThirdParty\DirectXMath\Extensions\DirectXMathAVX2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ThirdParty\DirextXMath\Extensions\DirectXMathBE.h">
+    <ClInclude Include="ThirdParty\DirectXMath\Extensions\DirectXMathBE.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ThirdParty\DirextXMath\Extensions\DirectXMathF16C.h">
+    <ClInclude Include="ThirdParty\DirectXMath\Extensions\DirectXMathF16C.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ThirdParty\DirextXMath\Extensions\DirectXMathFMA3.h">
+    <ClInclude Include="ThirdParty\DirectXMath\Extensions\DirectXMathFMA3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ThirdParty\DirextXMath\Extensions\DirectXMathFMA4.h">
+    <ClInclude Include="ThirdParty\DirectXMath\Extensions\DirectXMathFMA4.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ThirdParty\DirextXMath\Extensions\DirectXMathSSE3.h">
+    <ClInclude Include="ThirdParty\DirectXMath\Extensions\DirectXMathSSE3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ThirdParty\DirextXMath\Extensions\DirectXMathSSE4.h">
+    <ClInclude Include="ThirdParty\DirectXMath\Extensions\DirectXMathSSE4.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ThirdParty\DirextXMath\Inc\DirectXCollision.h">
+    <ClInclude Include="ThirdParty\DirectXMath\MatrixStack\DirectXMatrixStack.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ThirdParty\DirextXMath\Inc\DirectXColors.h">
+    <ClInclude Include="ThirdParty\DirectXMath\SHMath\DirectXSH.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ThirdParty\DirextXMath\Inc\DirectXMath.h">
+    <ClInclude Include="ThirdParty\DirectXMath\Stereo3D\Stereo3DMatrixHelper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ThirdParty\DirextXMath\Inc\DirectXPackedVector.h">
+    <ClInclude Include="ThirdParty\DirectXMath\XDSP\XDSP.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ThirdParty\DirextXMath\MatrixStack\DirectXMatrixStack.h">
+    <ClInclude Include="Build\stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ThirdParty\DirextXMath\SHMath\DirectXSH.h">
+    <ClInclude Include="Source\Runtime\Engine\Classes\Camera\Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ThirdParty\DirextXMath\Stereo3D\Stereo3DMatrixHelper.h">
+    <ClInclude Include="Source\Runtime\Engine\Classes\Engine\Engine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ThirdParty\DirextXMath\XDSP\XDSP.h">
+    <ClInclude Include="Source\Runtime\Engine\Classes\FrameWork\Controller.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Core\Core.h">
+    <ClInclude Include="Source\Runtime\Engine\Classes\CameraController\CameraController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\Engine\Classes\Controller\Controller.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\Engine\Classes\EngineTimer\EngineTimer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Core\Engine\Engine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Math\MathHelper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ThirdParty\DirextXMath\SHMath\DirectXSH.cpp">
+    <ClCompile Include="ThirdParty\DirectXMath\SHMath\DirectXSH.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ThirdParty\DirextXMath\SHMath\DirectXSHD3D11.cpp">
+    <ClCompile Include="ThirdParty\DirectXMath\SHMath\DirectXSHD3D11.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ThirdParty\DirextXMath\SHMath\DirectXSHD3D12.cpp">
+    <ClCompile Include="ThirdParty\DirectXMath\SHMath\DirectXSHD3D12.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ThirdParty\DirextXMath\Stereo3D\Stereo3DMatrixHelper.cpp">
+    <ClCompile Include="ThirdParty\DirectXMath\Stereo3D\Stereo3DMatrixHelper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Build\stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Runtime\Engine\Private\BaseController\BaseController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Runtime\Engine\Private\Camera\Camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Runtime\Engine\Private\Engine\Engine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Runtime\Engine\Private\CameraController\CameraController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Runtime\Engine\Private\EngineTimer\EngineTimer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Runtime\Engine\Private\Controller\Controller.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -107,27 +128,9 @@
   <ItemGroup>
     <None Include="README.md" />
     <None Include="Sandbox.md" />
-    <None Include="ThirdParty\DirextXMath\Inc\DirectXCollision.inl">
-      <Filter>Header Files</Filter>
-    </None>
-    <None Include="ThirdParty\DirextXMath\Inc\DirectXMathConvert.inl">
-      <Filter>Header Files</Filter>
-    </None>
-    <None Include="ThirdParty\DirextXMath\Inc\DirectXMathMatrix.inl">
-      <Filter>Header Files</Filter>
-    </None>
-    <None Include="ThirdParty\DirextXMath\Inc\DirectXMathMisc.inl">
-      <Filter>Header Files</Filter>
-    </None>
-    <None Include="ThirdParty\DirextXMath\Inc\DirectXMathVector.inl">
-      <Filter>Header Files</Filter>
-    </None>
-    <None Include="ThirdParty\DirextXMath\Inc\DirectXPackedVector.inl">
-      <Filter>Header Files</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="ThirdParty\DirextXMath\SHMath\CMakeLists.txt" />
+    <Text Include="ThirdParty\DirectXMath\SHMath\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\ico\small.ico">

@@ -1,8 +1,8 @@
 ﻿
 #include <windows.h>
-#include "../../Classes/EngineTimer/EngineTimer.h"
+#include "../../Classes/Timer/Timer.h"
 
-EngineTimer::EngineTimer ()
+Timer::Timer ()
 	: mSecondsPerCount (0.0), mDeltaTime (-1.0), mBaseTime (0),
 	mPausedTime (0), mPrevTime (0), mCurrTime (0), mStopped (false)
 {
@@ -12,7 +12,7 @@ EngineTimer::EngineTimer ()
 }
 
 
-float EngineTimer::TotalTime ()const
+float Timer::TotalTime ()const
 {
 
 	if(mStopped)
@@ -27,12 +27,12 @@ float EngineTimer::TotalTime ()const
 	}
 }
 
-float EngineTimer::DeltaTime ()const
+float Timer::DeltaTime ()const
 {
 	return (float)mDeltaTime;
 }
 
-void EngineTimer::Reset ()
+void Timer::Reset ()
 {
 	__int64 currTime;
 	QueryPerformanceCounter ((LARGE_INTEGER*)&currTime);
@@ -43,7 +43,7 @@ void EngineTimer::Reset ()
 	mStopped = false;
 }
 
-void EngineTimer::Start ()
+void Timer::Start ()
 {
 	__int64 startTime;
 	QueryPerformanceCounter ((LARGE_INTEGER*)&startTime);
@@ -65,7 +65,7 @@ void EngineTimer::Start ()
 	}
 }
 
-void EngineTimer::Stop ()
+void Timer::Stop ()
 {
 	if(!mStopped)
 	{
@@ -77,7 +77,7 @@ void EngineTimer::Stop ()
 	}
 }
 
-void EngineTimer::Tick ()
+void Timer::Tick ()
 {
 	if(mStopped)
 	{

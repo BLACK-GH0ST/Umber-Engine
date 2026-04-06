@@ -7,9 +7,10 @@
 #include <algorithm> // for clamp
 #include <DirectXMath.h>
 
+using std::clamp;
 
-CameraController::CameraController ()
-{}
+
+CameraController::CameraController () {}
 
 CameraController::CameraController (Camera* cam)
   : mCamera (cam)
@@ -29,6 +30,7 @@ void CameraController::Update (float dt)
 
   mCamera->Yaw (mYaw);
   mCamera->Pitch (mPitch);
+  
 
   mYaw = 0.0f;
   mPitch = 0.0f;

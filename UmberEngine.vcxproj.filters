@@ -75,10 +75,10 @@
     <ClInclude Include="Source\Runtime\Engine\Classes\CameraController\CameraController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Runtime\Engine\Classes\Controller\Controller.h">
+    <ClInclude Include="Source\Runtime\Engine\Classes\Timer\Timer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Runtime\Engine\Classes\EngineTimer\EngineTimer.h">
+    <ClInclude Include="Source\Runtime\Engine\Classes\Renderer\Renderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -101,9 +101,6 @@
     <ClCompile Include="Build\stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Runtime\Engine\Private\BaseController\BaseController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Runtime\Engine\Private\Camera\Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -113,10 +110,13 @@
     <ClCompile Include="Source\Runtime\Engine\Private\CameraController\CameraController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Runtime\Engine\Private\EngineTimer\EngineTimer.cpp">
+    <ClCompile Include="Source\Runtime\Engine\Private\Timer\Timer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Runtime\Engine\Private\Controller\Controller.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Runtime\Engine\Private\Renderer\Renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -145,5 +145,8 @@
     <Image Include="Build\small.ico">
       <Filter>Resource Files</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Assets\Shaders\Color_Axis.hlsl" />
   </ItemGroup>
 </Project>

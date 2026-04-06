@@ -103,7 +103,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -118,7 +118,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -131,10 +131,11 @@
     <ClInclude Include="Source\Runtime\Engine\Classes\CameraController\CameraController.h" />
     <ClInclude Include="Source\Runtime\Engine\Classes\Camera\Camera.h" />
     <ClInclude Include="Math\MathHelper.h" />
-    <ClInclude Include="Source\Runtime\Engine\Classes\EngineTimer\EngineTimer.h" />
+    <ClInclude Include="Source\Runtime\Engine\Classes\Timer\Timer.h" />
     <ClInclude Include="Source\Runtime\Engine\Classes\Engine\Engine.h" />
     <ClInclude Include="Build\stdafx.h" />
     <ClInclude Include="Source\Runtime\Engine\Classes\FrameWork\Controller.h" />
+    <ClInclude Include="Source\Runtime\Engine\Classes\Renderer\Renderer.h" />
     <ClInclude Include="ThirdParty\DirectXMath\Extensions\DirectXMathAVX.h" />
     <ClInclude Include="ThirdParty\DirectXMath\Extensions\DirectXMathAVX2.h" />
     <ClInclude Include="ThirdParty\DirectXMath\Extensions\DirectXMathBE.h" />
@@ -153,9 +154,10 @@
     <ClCompile Include="Source\Runtime\Engine\Private\Camera\Camera.cpp" />
     <ClCompile Include="Math\MathHelper.cpp" />
     <ClCompile Include="Source\Runtime\Engine\Private\Controller\Controller.cpp" />
-    <ClCompile Include="Source\Runtime\Engine\Private\EngineTimer\EngineTimer.cpp" />
+    <ClCompile Include="Source\Runtime\Engine\Private\Timer\Timer.cpp" />
     <ClCompile Include="Source\Runtime\Engine\Private\Engine\Engine.cpp" />
     <ClCompile Include="Build\stdafx.cpp" />
+    <ClCompile Include="Source\Runtime\Engine\Private\Renderer\Renderer.cpp" />
     <ClCompile Include="ThirdParty\DirectXMath\SHMath\DirectXSH.cpp" />
     <ClCompile Include="ThirdParty\DirectXMath\SHMath\DirectXSHD3D11.cpp" />
     <ClCompile Include="ThirdParty\DirectXMath\SHMath\DirectXSHD3D12.cpp" />
@@ -176,6 +178,11 @@
     <Image Include="Assets\ico\UmberEngine.ico" />
     <Image Include="Build\small.ico" />
     <Image Include="Build\UmberEngine.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Assets\Shaders\Color_Axis.hlsl">
+      <FileType>Document</FileType>
+    </FxCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

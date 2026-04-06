@@ -1,19 +1,22 @@
 ﻿
+// CPP headers
+#include <memory>
 #include <Windowsx.h>
 
 #include "..\..\Classes\Engine/Engine.h"
-#include "../../../../../Build/stdafx.h"
 #include "..\..\..\..\..\Build\Resource.h"
 #include "../../Classes/Camera/Camera.h"
-#include "../../Classes/EngineTimer/EngineTimer.h"
-#include "..\..\Classes\CameraController\CameraController.h"
+#include "../../Classes/Timer/Timer.h"
 
 #define MAX_LOADSTRING 100
+
+class CameraController;
 
 HINSTANCE hInst;                               
 WCHAR szTitle[MAX_LOADSTRING];                  
 WCHAR szWindowClass[MAX_LOADSTRING];            
-Umbra::Engine* gEngine = nullptr;               
+
+Umbra::Engine gEngineInstance;               
 
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
@@ -26,11 +29,13 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
     LoadStringW(hInstance, IDC_UMBERENGINE, szWindowClass, MAX_LOADSTRING);
      
-    if(!gEngine->Init (hInstance, nCmdShow))
+    // Initialize and run the engine instance
+
+    if(!gEngineInstance.Init (hInstance, nCmdShow))
     {
       return -1;
     }
-    return gEngine->Run();
+    return gEngineInstance.Run();
 }
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -53,8 +58,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             default:
                 return DefWindowProc(hWnd, message, wParam, lParam);
             }
-        }
-        break;
+        } break;
+
     case WM_MOUSEMOVE:
       {
         static float lastX = 0;
@@ -69,8 +74,17 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         lastX = x;
         lastY = y;
 
-      }
+        gEngineInstance.OnMouseMove (dx, dy);
+      } break;
+
+    case WM_KEYDOWN:
+      gEngineInstance.OnKeyDown (wParam);
       break;
+
+    case WM_KEYUP:
+      gEngineInstance.OnKeyUp (wParam);
+      break;
+
     case WM_PAINT:
         {
             PAINTSTRUCT ps;
@@ -110,6 +124,34 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 
 namespace Umbra // Umbra Engine =>
 {
+
+  bool Engine::Init (HINSTANCE hInstance, int nCmdShow)
+  {
+    if(!Engine::InitWindow (hInstance, nCmdShow))
+      return false;
+    // Initialize core runtime objects
+    mCamera = new Camera();
+    mCameraController = std::make_unique<CameraController> (mCamera);
+
+    // Initialize renderer
+    RECT rc;
+    GetClientRect (m_hWnd, &rc);
+    int width = rc.right - rc.left;
+    int height = rc.bottom - rc.top;
+    mRenderer = std::make_unique<Renderer> ();
+    if(!mRenderer->Init (m_hWnd, width, height))
+      return false;
+
+    // Camera setup
+    float aspect = (height != 0) ? (float)width / (float)height : 1.0f;
+    mCamera->SetLens (.25f * MathHelper::Pi, aspect, 0.1f, 1000.0f);
+    mCamera->SetPosition (0.0f, 2.0f, -5.0f);
+    mCamera->LookAt ({ 0,2,-5 }, { 0,0,0 }, { 0,1,0 });
+
+    return true;
+  }
+
+
   int Engine::Run ()
   {
     MSG msg = {};
@@ -129,14 +171,12 @@ namespace Umbra // Umbra Engine =>
     return (int)msg.wParam;
   }
 
-  bool Engine::Init (HINSTANCE hInstance, int nCmdShow)
-  {
-    if(!Engine::InitWindow (hInstance, nCmdShow))
-      return false;
+  void Engine::OnKeyDown (WPARAM wparam)
+  {}
 
-    return true;
-  }
-
+  void Engine::OnKeyUp (WPARAM wparam)
+  {}
+  
   bool Engine::InitWindow (HINSTANCE hInstance, int nCmdShow)
   {
     const wchar_t CLASS_NAME [] = L"UmbraWindowClass";
@@ -157,7 +197,7 @@ namespace Umbra // Umbra Engine =>
     wc.hIconSm        = LoadIcon(wc.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 
     RegisterClassExW (&wc);
-    m_hWnd = CreateWindowExW (0, CLASS_NAME, L"Umbra Engine", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, 1280, 720, 0, 0, nullptr, hInstance,  nullptr);
+    m_hWnd = CreateWindowExW (0, CLASS_NAME, L"Umbra Engine", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, 1280, 720, nullptr, nullptr, hInstance,  nullptr);
     if(!m_hWnd)
       return false;
 
@@ -167,13 +207,33 @@ namespace Umbra // Umbra Engine =>
     return true;
   }
 
+  void Engine::Update ()
+  {}
+
+  void Engine::Render ()
+  {
+    if(!mRenderer) return;
+    mRenderer->BeginFrame ();
+    mRenderer->DrawGrid (*mCamera);
+    mRenderer->EndFrame ();
+  }
+
   void Engine::Tick ()
   {
-    EngineTimer timer;
+    Timer timer;
     float dt = timer.DeltaTime ();
 
-    mCameraController.Update (dt);
-    mCamera.UpdateViewMatrix ();
+    if(mCameraController)
+      mCameraController->Update (dt);
+    if(mCamera)
+      mCamera->UpdateViewMatrix ();
 
+    Render ();
+  }
+
+  void Engine::OnMouseMove (float dx, float dy)
+  {
+    if(mCameraController)
+      mCameraController->OnMouseMove (dx, dy);
   }
 }

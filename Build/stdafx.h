@@ -1,27 +1,44 @@
-﻿//*********************************************************
-//
-// Copyright (c) Microsoft. All rights reserved.
-// This code is licensed under the MIT License (MIT).
-// THIS CODE IS PROVIDED *AS IS* WITHOUT WARRANTY OF
-// ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY
-// IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR
-// PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.
-//
-//*********************************************************
+﻿/**********************************************************************************************
+*
+*  File Name   : stdafx.h
+*
+*  Description :
+*      Precompiled header for the Umbra Engine.
+*
+*      This file includes commonly used system, standard library, and DirectX headers
+*      to reduce compilation time across the project.
+*
+*      It also defines utility functions and helper classes for error handling,
+*      particularly for HRESULT-based DirectX operations.
+*
+*  Notes :
+*      - Included in most source files (.cpp) across the engine.
+*      - Contains ThrowIfFailed() for runtime error validation.
+*      - Avoid adding heavy or rarely used headers unnecessarily.
+*
+**********************************************************************************************/
+
 #pragma once
 
 #ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN
 #endif
 
+//--------------------------------------------------------------------------------------
 // Windows Header Files
-#include <DirectXMath.h>
-#include <Windows.h>
+//--------------------------------------------------------------------------------------
 
+#include <Windows.h>
+#include <DirectXMath.h>
+
+// Prevent Windows macros from interfering with std::min / std::max
 #undef max
 #undef min
 
-// C RunTime Header Files
+//--------------------------------------------------------------------------------------
+// C Runtime / Standard Library Headers
+//--------------------------------------------------------------------------------------
+
 #include <algorithm>
 #include <cassert>
 #include <codecvt>
@@ -35,38 +52,69 @@
 #include <malloc.h>
 #include <memory.h>
 #include <tchar.h>
+#include <format>
 
-// header.h : include file for standard system include files, or project specific include files
+//--------------------------------------------------------------------------------------
+// Project Headers
+//--------------------------------------------------------------------------------------
 
 #include "Targetver.h"
 
+//--------------------------------------------------------------------------------------
+// COM Exception Helper
+//--------------------------------------------------------------------------------------
 
-    // Helper class for COM exceptions
+/**
+ * Exception class used to represent HRESULT failures.
+ * Provides a readable error message for debugging purposes.
+ */
 class com_exception : public std::exception
 {
 public:
-  com_exception (HRESULT hr) : result (hr) {}
 
-  virtual const char* what () const override
+    /**
+     * Constructor.
+     * @param hr - HRESULT error code.
+     */
+  explicit com_exception (HRESULT hr) : message(std::format("Failure with HRESULT of {:08X}", static_cast<unsigned int>(hr))) {}
+
+  /**
+   * Returns a formatted error message.
+   */
+  const char* what () const override
   {
-    static char s_str[64] = {};
-    sprintf_s (s_str, "Failure with HRESULT of %08X", static_cast<unsigned int>(result));
-    return s_str;
+    return message.c_str();
   }
 
 private:
-  HRESULT result;
+
+    /** Stored HRESULT error code. */
+    std::string message;
 };
 
+//--------------------------------------------------------------------------------------
+// Error Handling Utility
+//--------------------------------------------------------------------------------------
+
+/**
+ * Checks the result of an HRESULT call.
+ *
+ * If the call fails:
+ *  - Outputs debug information (in Debug mode)
+ *  - Breaks execution for debugging
+ *  - Throws a com_exception
+ *
+ * @param hr - HRESULT returned from a DirectX or Win32 function.
+ */
 inline void ThrowIfFailed (HRESULT hr)
 {
   if(FAILED (hr))
   {
 #ifdef _DEBUG
-    char str[128] = {};
-    sprintf_s (str, "**ERROR** Fatal Error with HRESULT of %08X\n", static_cast<unsigned int>(hr));
-    OutputDebugStringA (str);
-    __debugbreak ();
+    
+    std::string msg = std::format ( "**ERROR** Fatal Error with HRESULT of {:08X}\n", static_cast<unsigned int>(hr));
+    OutputDebugStringA (msg.c_str());
+    __debugbreak (); // Break into debugger
 #endif
     throw com_exception (hr);
   }

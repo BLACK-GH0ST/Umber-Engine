@@ -9,30 +9,6 @@
 
 using namespace DirectX;
 
-namespace 
-{
-	const char* g_VS = R"( cbuffer VSConstants : register(b0)
-{
-	float4x4 gViewProj;
-};
-struct VSIn { float3 pos : POSITION; float4 col : COLOR; };
-struct VSOut { float4 pos : SV_Position; float4 col : COLOR; };
-VSOut main(VSIn i) {
-	VSOut o;
-	o.pos = mul(float4(i.pos, 1.0f), gViewProj);
-	o.col = i.col;
-	return o;
-}
-)";
-
-	const char* g_PS = R"(
-struct PSIn { float4 pos : SV_Position; float4 col : COLOR; };
-float4 main(PSIn i) : SV_Target {
-	return i.col;
-}
-)";
-}
-
 struct GridVertex
 {
 	XMFLOAT3 pos;
@@ -100,10 +76,23 @@ bool Renderer::Init (HWND hwnd, int backbufferWidth, int backbufferHeight)
 
 	// Compile and create shaders
 	Microsoft::WRL::ComPtr<ID3DBlob> vsBlob, psBlob, errBlob;
-	if(FAILED (D3DCompile (g_VS, strlen (g_VS), nullptr, nullptr, nullptr, "main", "vs_5_0", 0, 0, vsBlob.GetAddressOf (), errBlob.GetAddressOf ())))
+	// vertex shader of main map area 
+	HRESULT hr;
+	hr = D3DCompileFromFile (L"Asset/Shader/Color_Axis.hlsl", nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, "VSmain", "vs_5_0", D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION, 0, &vsBlob, &errBlob);
+	if (FAILED (hr))
+	{
+		if(errBlob)
+		OutputDebugStringA ((char*)errBlob->GetBufferPointer ());
 		return false;
-	if(FAILED (D3DCompile (g_PS, strlen (g_PS), nullptr, nullptr, nullptr, "main", "ps_5_0", 0, 0, psBlob.GetAddressOf (), errBlob.GetAddressOf ())))
+	}
+	// Pixel Shader on main map area
+	hr = D3DCompileFromFile (L"Asset/Shader/Color_Axis.hlsl", nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, "PSmain", "vs_5_0", D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION, 0, &psBlob, &errBlob);
+	if(FAILED (hr))
+	{
+		if(errBlob)
+			OutputDebugStringA ((char*)errBlob->GetBufferPointer ());
 		return false;
+	}
 	if(FAILED (mDevice->CreateVertexShader (vsBlob->GetBufferPointer (), vsBlob->GetBufferSize (), nullptr, mVertexShader.ReleaseAndGetAddressOf ())))
 		return false;
 	if(FAILED (mDevice->CreatePixelShader (psBlob->GetBufferPointer (), psBlob->GetBufferSize (), nullptr, mPixelShader.ReleaseAndGetAddressOf ())))

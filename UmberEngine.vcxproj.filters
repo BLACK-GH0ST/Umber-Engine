@@ -147,6 +147,9 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Assets\Shaders\Color_Axis.hlsl" />
+    <CustomBuild Include="Assets\Shaders\Color_Axis.hlsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="x64\Debug\Assets\Shaders\Color_Axis.hlsl" />
   </ItemGroup>
 </Project>

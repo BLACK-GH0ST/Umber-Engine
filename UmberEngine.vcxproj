@@ -180,9 +180,12 @@
     <Image Include="Build\UmberEngine.ico" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Assets\Shaders\Color_Axis.hlsl">
+    <CustomBuild Include="Assets\Shaders\Color_Axis.hlsl">
       <FileType>Document</FileType>
-    </FxCompile>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="x64\Debug\Assets\Shaders\Color_Axis.hlsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,11 +1,10 @@
-# Visual Studio
+﻿# Visual Studio
 .vs/
 *.vcxproj.user
 *.sln.docstates
 
 # Build folders
 x64/
-Build/
 Debug/
 Release/
 

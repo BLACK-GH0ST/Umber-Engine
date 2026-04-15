@@ -149,7 +149,4 @@
     <None Include="README.md" />
     <None Include="Sandbox.md" />
   </ItemGroup>
-  <ItemGroup>
-    <FxCompile Include="Assets\Shaders\Color_Axis.hlsl" />
-  </ItemGroup>
 </Project>

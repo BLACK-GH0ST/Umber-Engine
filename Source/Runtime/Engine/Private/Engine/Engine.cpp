@@ -8,7 +8,7 @@
 #include "..\..\..\..\..\Build\Resource.h"
 #include "../../Classes/Camera/Camera.h"
 
-#define MAX_LOADSTRING 100
+#define MAX_LOADSTRING 1000
 
 class CameraController;
 
@@ -140,7 +140,15 @@ namespace Umbra // Umbra Engine =>
     int height = rc.bottom - rc.top;
     mRenderer = std::make_unique<Renderer> ();
     if(!mRenderer->Init (m_hWnd, width, height))
-      return false;
+    {
+      MessageBoxW (
+        m_hWnd,
+        L"Renderer initialization failed. The engine will keep running without rendering.\n\n"
+        L"Tip: if this happens when launching the exe directly, ensure Assets/Shaders are next to the exe or run from the repo root.",
+        L"Umbra Engine",
+        MB_OK | MB_ICONERROR);
+      mRenderer.reset ();
+    }
 
     // Camera setup
     float aspect = (height != 0) ? (float)width / (float)height : 1.0f;

@@ -4,6 +4,8 @@
 #include <DirectXMath.h>
 #include <dxgi.h>
 #include <vector>
+#include <string>
+#include <Windows.h>
 
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "d3dcompiler.lib")
@@ -38,6 +40,41 @@ static void BuildGridVertices (std::vector<GridVertex>& outVerts, int halfLines,
 	// Add Y-axis (vertical) in green through the origin
 	outVerts.push_back ({ XMFLOAT3 (0, -halfLines * spacing, 0), XMFLOAT4 (0, 1, 0, 1) });
 	outVerts.push_back ({ XMFLOAT3 (0,  halfLines * spacing, 0), XMFLOAT4 (0, 1, 0, 1) });
+}
+
+static std::wstring GetExeDirectory ()
+{
+	wchar_t path[MAX_PATH] = {};
+	DWORD len = GetModuleFileNameW (nullptr, path, MAX_PATH);
+	if(len == 0 || len >= MAX_PATH) return L"";
+
+	for(int i = (int)len - 1; i >= 0; --i)
+	{
+		if(path[i] == L'\\' || path[i] == L'/')
+		{
+			path[i + 1] = L'\0';
+			break;
+		}
+	}
+	return std::wstring (path);
+}
+
+static std::wstring ResolveShaderPath ()
+{
+	// Prefer paths relative to the executable so running outside VS still works.
+	// Fallback to repo-root relative path (useful when working directory is the repo root).
+	const std::wstring exeDir = GetExeDirectory ();
+	if(!exeDir.empty ())
+	{
+		std::wstring p = exeDir + L"Assets\\Shaders\\Color_Axis.hlsl";
+		if(GetFileAttributesW (p.c_str ()) != INVALID_FILE_ATTRIBUTES) return p;
+
+		// Common build output layout: <repo>\x64\Debug\ -> go up two levels.
+		p = exeDir + L"..\\..\\Assets\\Shaders\\Color_Axis.hlsl";
+		if(GetFileAttributesW (p.c_str ()) != INVALID_FILE_ATTRIBUTES) return p;
+	}
+
+	return L"Assets\\Shaders\\Color_Axis.hlsl";
 }
 
 bool Renderer::Init (HWND hwnd, int backbufferWidth, int backbufferHeight)
@@ -86,21 +123,24 @@ bool Renderer::Init (HWND hwnd, int backbufferWidth, int backbufferHeight)
 
 	// Compile and create shaders
 	Microsoft::WRL::ComPtr<ID3DBlob> vsBlob, psBlob, errBlob;
+	const std::wstring shaderPath = ResolveShaderPath ();
 	// vertex shader of main map area 
 	HRESULT hr;
-	hr = D3DCompileFromFile (L"Assets/Shaders/Color_Axis.hlsl", nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, "VSMain", "vs_5_0", D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION, 0, &vsBlob, &errBlob);
+	hr = D3DCompileFromFile (shaderPath.c_str (), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, "VSMain", "vs_5_0", D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION, 0, &vsBlob, &errBlob);
 	if (FAILED (hr))
 	{
 		if(errBlob)
 		OutputDebugStringA ((char*)errBlob->GetBufferPointer ());
+		OutputDebugStringW ((L"Shader compile failed (VS): " + shaderPath + L"\n").c_str ());
 		return false;
 	}
 	// Pixel Shader on main map area
-	hr = D3DCompileFromFile (L"Assets/Shaders/Color_Axis.hlsl", nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, "PSMain", "ps_5_0", D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION, 0, &psBlob, &errBlob);
+	hr = D3DCompileFromFile (shaderPath.c_str (), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, "PSMain", "ps_5_0", D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION, 0, &psBlob, &errBlob);
 	if(FAILED (hr))
 	{
 		if(errBlob)
 			OutputDebugStringA ((char*)errBlob->GetBufferPointer ());
+		OutputDebugStringW ((L"Shader compile failed (PS): " + shaderPath + L"\n").c_str ());
 		return false;
 	}
 	if(FAILED (mDevice->CreateVertexShader (vsBlob->GetBufferPointer (), vsBlob->GetBufferSize (), nullptr, mVertexShader.ReleaseAndGetAddressOf ())))

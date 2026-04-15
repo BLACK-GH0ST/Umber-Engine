@@ -73,9 +73,6 @@
     <None Include="README.md" />
     <None Include="Sandbox.md" />
   </ItemGroup>
-  <ItemGroup>
-    <FxCompile Include="Assets\Shaders\Color_Axis.hlsl" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>

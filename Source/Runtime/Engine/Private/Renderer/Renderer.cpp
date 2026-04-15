@@ -2,6 +2,7 @@
 #include "../../Classes/Camera/Camera.h"
 #include <d3dcompiler.h>
 #include <DirectXMath.h>
+#include <dxgi.h>
 #include <vector>
 
 #pragma comment(lib, "d3d11.lib")
@@ -74,11 +75,20 @@ bool Renderer::Init (HWND hwnd, int backbufferWidth, int backbufferHeight)
 	if(FAILED (mDevice->CreateRenderTargetView (backBuffer.Get (), nullptr, mRTV.ReleaseAndGetAddressOf ())))
 		return false;
 
+	D3D11_VIEWPORT viewport = {};
+	viewport.TopLeftX = 0.0f;
+	viewport.TopLeftY = 0.0f;
+	viewport.Width = static_cast<FLOAT> (backbufferWidth);
+	viewport.Height = static_cast<FLOAT> (backbufferHeight);
+	viewport.MinDepth = 0.0f;
+	viewport.MaxDepth = 1.0f;
+	mContext->RSSetViewports (1, &viewport);
+
 	// Compile and create shaders
 	Microsoft::WRL::ComPtr<ID3DBlob> vsBlob, psBlob, errBlob;
 	// vertex shader of main map area 
 	HRESULT hr;
-	hr = D3DCompileFromFile (L"Asset/Shader/Color_Axis.hlsl", nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, "VSmain", "vs_5_0", D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION, 0, &vsBlob, &errBlob);
+	hr = D3DCompileFromFile (L"Assets/Shaders/Color_Axis.hlsl", nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, "VSMain", "vs_5_0", D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION, 0, &vsBlob, &errBlob);
 	if (FAILED (hr))
 	{
 		if(errBlob)
@@ -86,7 +96,7 @@ bool Renderer::Init (HWND hwnd, int backbufferWidth, int backbufferHeight)
 		return false;
 	}
 	// Pixel Shader on main map area
-	hr = D3DCompileFromFile (L"Asset/Shader/Color_Axis.hlsl", nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, "PSmain", "vs_5_0", D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION, 0, &psBlob, &errBlob);
+	hr = D3DCompileFromFile (L"Assets/Shaders/Color_Axis.hlsl", nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, "PSMain", "ps_5_0", D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION, 0, &psBlob, &errBlob);
 	if(FAILED (hr))
 	{
 		if(errBlob)

@@ -1,4 +1,5 @@
 ﻿
+#include "../../../../../Build/stdafx.h"
 #include "../../Classes/Camera/Camera.h"
 
 using namespace DirectX;
@@ -6,7 +7,11 @@ using namespace DirectX;
 Camera::Camera()
 {
 	SetLens(.25f*MathHelper::Pi, 1.f, 1.f, 1000.f);
-	mRotationQuat = XMFLOAT4 (0, 0, 0, 1);
+	mPosition = XMFLOAT3 (0.0f, 0.0f, 0.0f);
+	mRight = XMFLOAT3 (1.0f, 0.0f, 0.0f);
+	mUp = XMFLOAT3 (0.0f, 1.0f, 0.0f);
+	mLook = XMFLOAT3 (0.0f, 0.0f, 1.0f);
+	UpdateViewMatrix ();
 }
 
 Camera::~Camera() {}
@@ -15,7 +20,7 @@ XMVECTOR Camera::GetPosition()const
 {
 	return XMLoadFloat3(&mPosition);
 }
-
+  
 XMFLOAT3 Camera::GetPosition3f()const
 {
 	return mPosition;
@@ -122,6 +127,7 @@ void Camera::SetLens(float fovY, float aspect, float zn, float zf)
 
 	XMMATRIX P = XMMatrixPerspectiveFovLH(mFovY, mAspect, mNearZ, mFarZ);
 	XMStoreFloat4x4(&mProj, P);
+	mViewDirty = true;
 }
 
 void Camera::_LookAt_(FXMVECTOR pos, FXMVECTOR target, FXMVECTOR worldUp)
@@ -175,10 +181,10 @@ XMFLOAT4X4 Camera::GetProj4x4f()const
 void Camera::Strafe(float d)
 {
 	XMVECTOR q = XMLoadFloat4 (&mRotationQuat);
-	XMVECTOR right = XMVector3Rotate ({ 1,0,0 }, q);
+	XMVECTOR right = XMVector3Rotate (XMVectorSet (1.0f, 0.0f, 0.0f, 0.0f), q);
 
 	XMVECTOR pos = XMLoadFloat3 (&mPosition);
-	pos += right * d;
+	pos = XMVectorMultiplyAdd (XMVectorReplicate (d), right, pos);
 
 	XMStoreFloat3 (&mPosition, pos);
 	mViewDirty = true;
@@ -198,7 +204,7 @@ void Camera::Walk(float d)
 void Camera::Pitch(float angle) // Local X
 {
 	XMVECTOR q = XMLoadFloat4 (&mRotationQuat);
-	XMVECTOR axis = XMVector3Rotate ({ 1, 0, 0 }, q);
+	XMVECTOR axis = XMVector3Rotate (XMVectorSet (1.0f, 0.0f, 0.0f, 0.0f), q);
 
 	XMVECTOR rot = XMQuaternionRotationAxis (axis, angle);
 	q = XMQuaternionMultiply (rot, q);
@@ -211,7 +217,7 @@ void Camera::Yaw (float angle) // Local Y
 {
 	XMVECTOR q = XMLoadFloat4 (&mRotationQuat);
 
-	XMVECTOR rot = XMQuaternionRotationAxis({0,1,0}, angle);
+	XMVECTOR rot = XMQuaternionRotationAxis (XMVectorSet (0.0f, 1.0f, 0.0f, 0.0f), angle);
 	q = XMQuaternionMultiply (rot, q);
 
 	XMStoreFloat4 (&mRotationQuat, XMQuaternionNormalize (q));
@@ -221,7 +227,7 @@ void Camera::Yaw (float angle) // Local Y
 void Camera::Roll (float angle) // Local Z
 {
 	XMVECTOR q = XMLoadFloat4 (&mRotationQuat);
-	XMVECTOR forward = XMVector3Rotate ({ 0,0,1 }, q);
+	XMVECTOR forward = XMVector3Rotate (XMVectorSet (0.0f, 0.0f, 1.0f, 0.0f), q);
 	
 	XMVECTOR rot = XMQuaternionRotationAxis (forward, angle);
 	q = XMQuaternionMultiply (rot, q);
@@ -250,11 +256,14 @@ void Camera::UpdateViewMatrix()
 	XMVECTOR pos = XMLoadFloat3 (&mPosition);
 	XMVECTOR q = XMLoadFloat4 (&mRotationQuat);
 
-	XMVECTOR forward = XMVector3Rotate ({ 0, 0, 1 }, q);
-	XMVECTOR up = XMVector3Rotate ({ 0, 1, 0 }, q);
+	XMVECTOR right = XMVector3Rotate (XMVectorSet (1.0f, 0.0f, 0.0f, 0.0f), q);
+	XMVECTOR up = XMVector3Rotate (XMVectorSet (0.0f, 1.0f, 0.0f, 0.0f), q);
+	XMVECTOR forward = XMVector3Rotate (XMVectorSet (0.0f, 0.0f, 1.0f, 0.0f), q);
 
 	XMMATRIX view = XMMatrixLookToLH (pos, forward, up);
 	XMStoreFloat4x4 (&mView, view);
-
-		mViewDirty = false;
+	XMStoreFloat3 (&mRight, right);
+	XMStoreFloat3 (&mUp, up);
+	XMStoreFloat3 (&mLook, forward);
+	mViewDirty = false;
 }

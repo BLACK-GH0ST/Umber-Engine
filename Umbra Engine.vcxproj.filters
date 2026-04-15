@@ -15,64 +15,40 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Build\Resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\MathHelper.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Build\Targetver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\DirectXMath\Extensions\DirectXMathAVX.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\DirectXMath\Extensions\DirectXMathAVX2.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\DirectXMath\Extensions\DirectXMathBE.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\DirectXMath\Extensions\DirectXMathF16C.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\DirectXMath\Extensions\DirectXMathFMA3.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\DirectXMath\Extensions\DirectXMathFMA4.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\DirectXMath\Extensions\DirectXMathSSE3.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\DirectXMath\Extensions\DirectXMathSSE4.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\DirectXMath\MatrixStack\DirectXMatrixStack.h">
+    <ClInclude Include="ThirdParty\DirectXMath\Stereo3D\Stereo3DMatrixHelper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ThirdParty\DirectXMath\SHMath\DirectXSH.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ThirdParty\DirectXMath\Stereo3D\Stereo3DMatrixHelper.h">
+    <ClInclude Include="ThirdParty\DirectXMath\MatrixStack\DirectXMatrixStack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\DirectXMath\Extensions\DirectXMathSSE4.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\DirectXMath\Extensions\DirectXMathFMA4.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\DirectXMath\Extensions\DirectXMathFMA3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\DirectXMath\Extensions\DirectXMathF16C.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\DirectXMath\Extensions\DirectXMathAVX2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\DirectXMath\Extensions\DirectXMathAVX.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\DirectXMath\Extensions\DirectXMathBE.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\DirectXMath\Extensions\DirectXMathSSE3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ThirdParty\DirectXMath\XDSP\XDSP.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Build\stdafx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Runtime\Engine\Classes\Camera\Camera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Runtime\Engine\Classes\Engine\Engine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Runtime\Engine\Classes\FrameWork\Controller.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Runtime\Engine\Classes\CameraController\CameraController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Runtime\Engine\Classes\Timer\Timer.h">
@@ -81,9 +57,39 @@
     <ClInclude Include="Source\Runtime\Engine\Classes\Renderer\Renderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Runtime\Engine\Classes\FrameWork\Controller.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\Engine\Classes\Engine\Engine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\Engine\Classes\CameraController\CameraController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Runtime\Engine\Classes\Camera\Camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\MathHelper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Build\framework.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Build\Resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Build\stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Build\Targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Math\MathHelper.cpp">
+    <ClCompile Include="ThirdParty\DirectXMath\Stereo3D\Stereo3DMatrixHelper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ThirdParty\DirectXMath\SHMath\DirectXSHD3D12.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ThirdParty\DirectXMath\SHMath\DirectXSH.cpp">
@@ -92,36 +98,50 @@
     <ClCompile Include="ThirdParty\DirectXMath\SHMath\DirectXSHD3D11.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ThirdParty\DirectXMath\SHMath\DirectXSHD3D12.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ThirdParty\DirectXMath\Stereo3D\Stereo3DMatrixHelper.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Build\stdafx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Runtime\Engine\Private\Camera\Camera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Runtime\Engine\Private\Engine\Engine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Runtime\Engine\Private\CameraController\CameraController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Runtime\Engine\Private\Timer\Timer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Runtime\Engine\Private\Controller\Controller.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Runtime\Engine\Private\Renderer\Renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Runtime\Engine\Private\Engine\Engine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Runtime\Engine\Private\Controller\Controller.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Runtime\Engine\Private\CameraController\CameraController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Runtime\Engine\Private\Camera\Camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\MathHelper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Build\stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Build\UmberEngine.rc">
+    <Text Include="ThirdParty\DirectXMath\SHMath\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\png\Logo2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\png\Logo1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Build\small.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Build\Umbra Engine.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Build\Umbra Engine.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>
@@ -130,26 +150,6 @@
     <None Include="Sandbox.md" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="ThirdParty\DirectXMath\SHMath\CMakeLists.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Assets\ico\small.ico">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Assets\ico\UmberEngine.ico">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Build\UmberEngine.ico">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Build\small.ico">
-      <Filter>Resource Files</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <CustomBuild Include="Assets\Shaders\Color_Axis.hlsl" />
-  </ItemGroup>
-  <ItemGroup>
-    <FxCompile Include="x64\Debug\Assets\Shaders\Color_Axis.hlsl" />
+    <FxCompile Include="Assets\Shaders\Color_Axis.hlsl" />
   </ItemGroup>
 </Project>

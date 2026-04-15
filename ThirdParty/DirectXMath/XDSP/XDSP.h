@@ -1,4 +1,4 @@
-//--------------------------------------------------------------------------------------
+﻿//--------------------------------------------------------------------------------------
 // File: XDSP.h
 //
 // DirectXMath based Digital Signal Processing (DSP) functions for audio,
@@ -43,7 +43,7 @@ namespace XDSP
 
     constexpr bool ISPOWEROF2(size_t n) { return (((n)&((n)-1)) == 0 && (n) != 0); }
 
-    // Parallel multiplication of four complex numbers, assuming real and imaginary values are stored in separate vectors.
+    // Parallel multiplication of four complex nUmbras, assuming real and imaginary values are stored in separate vectors.
     inline void XM_CALLCONV vmulComplex(
         _Out_ XMVECTOR& rResult, _Out_ XMVECTOR& iResult,
         _In_ FXMVECTOR r1, _In_ FXMVECTOR i1, _In_ FXMVECTOR r2, _In_ GXMVECTOR i2) noexcept
@@ -80,7 +80,7 @@ namespace XDSP
     //     | 1  j -1 -j |    | (r1W,i1W) |
     //
     // This matrix can be decomposed into two simpler ones to reduce the
-    // number of additions needed. The decomposed matrices look like this:
+    // nUmbra of additions needed. The decomposed matrices look like this:
     //     | 1  0  1  0 |    | 1  0  1  0 |
     //     | 0  1  0 -j |    | 1  0 -1  0 |
     //     | 1  0 -1  0 |    | 0  1  0  1 |
@@ -231,7 +231,7 @@ namespace XDSP
     // PARAMETERS:
     //  pReal      - [inout] real components, must have at least uCount elements
     //  pImaginary - [inout] imaginary components, must have at least uCount elements
-    //  uCount     - [in]    number of FFT iterations
+    //  uCount     - [in]    nUmbra of FFT iterations
     //----------------------------------------------------------------------------------
     inline void FFT4(
         _Inout_updates_(uCount) XMVECTOR* __restrict pReal,
@@ -257,7 +257,7 @@ namespace XDSP
     // PARAMETERS:
     //  pReal      - [inout] real components, must have at least uCount*2 elements
     //  pImaginary - [inout] imaginary components, must have at least uCount*2 elements
-    //  uCount     - [in]    number of FFT iterations
+    //  uCount     - [in]    nUmbra of FFT iterations
     //----------------------------------------------------------------------------------
     inline void FFT8(
         _Inout_updates_(uCount * 2) XMVECTOR* __restrict pReal,
@@ -307,7 +307,7 @@ namespace XDSP
     // PARAMETERS:
     //  pReal      - [inout] real components, must have at least uCount*4 elements
     //  pImaginary - [inout] imaginary components, must have at least uCount*4 elements
-    //  uCount     - [in]    number of FFT iterations
+    //  uCount     - [in]    nUmbra of FFT iterations
     //----------------------------------------------------------------------------------
     inline void FFT16(
         _Inout_updates_(uCount * 4) XMVECTOR* __restrict pReal,
@@ -364,7 +364,7 @@ namespace XDSP
     //  pImaginary  - [inout] imaginary components, must have at least (uLength*uCount)/4 elements
     //  pUnityTable - [in]    unity table, must have at least uLength*uCount elements, see FFTInitializeUnityTable()
     //  uLength     - [in]    FFT length in samples, must be a power of 2 > 16
-    //  uCount      - [in]    number of FFT iterations
+    //  uCount      - [in]    nUmbra of FFT iterations
     //----------------------------------------------------------------------------------
     inline void FFT(
         _Inout_updates_((uLength * uCount) / 4) XMVECTOR* __restrict pReal,
@@ -504,7 +504,7 @@ namespace XDSP
     //  Use this function to re-arrange them into order of increasing frequency.
     //
     // REMARKS:
-    //  Exponential values and bits correspond, so the reversed upper index can be omitted depending on the number of exponents.
+    //  Exponential values and bits correspond, so the reversed upper index can be omitted depending on the nUmbra of exponents.
     //
     // PARAMETERS:
     //  pOutput     - [out] output buffer, receives samples in order of increasing frequency, cannot overlap pInput, must have at least (1<<uLog2Length)/4 elements
@@ -642,8 +642,8 @@ namespace XDSP
     // PARAMETERS:
     //  pOutput       - [out] output buffer, receives samples in deinterleaved form, cannot overlap pInput, must have at least (uChannelCount*uFrameCount)/4 elements
     //  pInput        - [in]  input buffer, cannot overlap pOutput, must have at least (uChannelCount*uFrameCount)/4 elements
-    //  uChannelCount - [in]  number of channels, must be > 1
-    //  uFrameCount   - [in]  number of frames of valid data, must be > 0
+    //  uChannelCount - [in]  nUmbra of channels, must be > 1
+    //  uFrameCount   - [in]  nUmbra of frames of valid data, must be > 0
     //----------------------------------------------------------------------------------
     inline void Deinterleave(
         _Out_writes_((uChannelCount * uFrameCount) / 4) XMVECTOR* __restrict pOutput,
@@ -678,8 +678,8 @@ namespace XDSP
     // PARAMETERS:
     //  pOutput       - [out] output buffer, receives samples in interleaved form, cannot overlap pInput, must have at least (uChannelCount*uFrameCount)/4 elements
     //  pInput        - [in]  input buffer, cannot overlap pOutput, must have at least (uChannelCount*uFrameCount)/4 elements
-    //  uChannelCount - [in]  number of channels, must be > 1
-    //  uFrameCount   - [in]  number of frames of valid data, must be > 0
+    //  uChannelCount - [in]  nUmbra of channels, must be > 1
+    //  uFrameCount   - [in]  nUmbra of frames of valid data, must be > 0
     //----------------------------------------------------------------------------------
     inline void Interleave(
         _Out_writes_((uChannelCount * uFrameCount) / 4) XMVECTOR* __restrict pOutput,
@@ -714,7 +714,7 @@ namespace XDSP
     //  pReal         - [inout] real components, must have at least (1<<uLog2Length*uChannelCount)/4 elements
     //  pImaginary    - [out]   imaginary components, must have at least (1<<uLog2Length*uChannelCount)/4 elements
     //  pUnityTable   - [in]    unity table, must have at least (1<<uLog2Length) elements, see FFTInitializeUnityTable()
-    //  uChannelCount - [in]    number of channels, must be within [1, 6]
+    //  uChannelCount - [in]    nUmbra of channels, must be within [1, 6]
     //  uLog2Length   - [in]    LOG (base 2) of FFT length in frames, must within [2, 9]
     //----------------------------------------------------------------------------------
     inline void FFTInterleaved(
@@ -793,7 +793,7 @@ namespace XDSP
     //  pReal         - [inout] real components, must have at least (1<<uLog2Length*uChannelCount)/4 elements
     //  pImaginary    - [in]    imaginary components, must have at least (1<<uLog2Length*uChannelCount)/4 elements
     //  pUnityTable   - [in]    unity table, must have at least (1<<uLog2Length) elements, see FFTInitializeUnityTable()
-    //  uChannelCount - [in]    number of channels, must be > 0
+    //  uChannelCount - [in]    nUmbra of channels, must be > 0
     //  uLog2Length   - [in]    LOG (base 2) of FFT length in frames, must within [2, 9]
     //----------------------------------------------------------------------------------
     inline void IFFTDeinterleaved(

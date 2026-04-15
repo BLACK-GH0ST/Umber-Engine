@@ -1,12 +1,12 @@
 ﻿
 // CPP headers
+#include "../../../../../Build/stdafx.h"
 #include <memory>
 #include <Windowsx.h>
 
 #include "..\..\Classes\Engine/Engine.h"
 #include "..\..\..\..\..\Build\Resource.h"
 #include "../../Classes/Camera/Camera.h"
-#include "../../Classes/Timer/Timer.h"
 
 #define MAX_LOADSTRING 100
 
@@ -27,7 +27,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
     UNREFERENCED_PARAMETER(lpCmdLine);
 
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
-    LoadStringW(hInstance, IDC_UMBERENGINE, szWindowClass, MAX_LOADSTRING);
+    LoadStringW(hInstance, IDC_UMBRAENGINE, szWindowClass, MAX_LOADSTRING);
      
     // Initialize and run the engine instance
 
@@ -147,6 +147,7 @@ namespace Umbra // Umbra Engine =>
     mCamera->SetLens (.25f * MathHelper::Pi, aspect, 0.1f, 1000.0f);
     mCamera->SetPosition (0.0f, 2.0f, -5.0f);
     mCamera->LookAt ({ 0,2,-5 }, { 0,0,0 }, { 0,1,0 });
+    mTimer.Reset ();
 
     return true;
   }
@@ -190,10 +191,10 @@ namespace Umbra // Umbra Engine =>
     wc.cbClsExtra     = 0;
     wc.cbWndExtra     = 0;
     wc.hInstance      = hInstance;
-    wc.hIcon          = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_UMBERENGINE));
+    wc.hIcon          = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_UMBRAENGINE));
     wc.hCursor        = LoadCursor(nullptr, IDC_ARROW);
     wc.hbrBackground  = (HBRUSH)(COLOR_WINDOW + 3);
-    wc.lpszMenuName   = MAKEINTRESOURCEW(IDC_UMBERENGINE);
+    wc.lpszMenuName   = MAKEINTRESOURCEW(IDC_UMBRAENGINE);
     wc.hIconSm        = LoadIcon(wc.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 
     RegisterClassExW (&wc);
@@ -220,8 +221,8 @@ namespace Umbra // Umbra Engine =>
 
   void Engine::Tick ()
   {
-    Timer timer;
-    float dt = timer.DeltaTime ();
+    mTimer.Tick ();
+    float dt = mTimer.DeltaTime ();
 
     if(mCameraController)
       mCameraController->Update (dt);

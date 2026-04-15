@@ -23,6 +23,7 @@
 #include "../Camera/Camera.h"
 #include "../../Classes\CameraController/CameraController.h"
 #include "../../Classes/Renderer/Renderer.h"
+#include "../../Classes/Timer/Timer.h"
 
 class Camera;
 class CameraController;
@@ -92,6 +93,9 @@ namespace Umbra
 
     /** Renderer subsystem. */
     std::unique_ptr<Renderer> mRenderer;
+
+    /** Persistent frame timer used by the main loop. */
+    Timer mTimer;
   };
 }
 

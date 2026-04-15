@@ -7,9 +7,6 @@
 #include <algorithm> // for clamp
 #include <DirectXMath.h>
 
-using std::clamp;
-
-
 CameraController::CameraController () {}
 
 CameraController::CameraController (Camera* cam)

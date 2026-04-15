@@ -60,8 +60,8 @@ public:
 	void SetLens (float fovY, float aspect, float zn, float zf);
 
 	//Define camera space via LookAt parameter
-	void _LookAt_ (DirectX::XMVECTOR pos, DirectX::XMVECTOR target, DirectX::XMVECTOR proj);
-	void LookAt (const DirectX::XMFLOAT3& pos, const DirectX::XMFLOAT3& target, const DirectX::XMFLOAT3& proj);
+	void _LookAt_ (DirectX::FXMVECTOR pos, DirectX::FXMVECTOR target, DirectX::FXMVECTOR up);
+	void LookAt (const DirectX::XMFLOAT3& pos, const DirectX::XMFLOAT3& target, const DirectX::XMFLOAT3& up);
 
 	//Get view/proj matrices
 	DirectX::XMMATRIX GetView () const;
@@ -91,19 +91,19 @@ public:
 
 private:
 		/** Camera position in world space. */
-	float mPosX, mPosY, mPosZ;
+	float mPosX = 0.0f, mPosY = 0.0f, mPosZ = 0.0f;
 
 	/** Camera rotation (pitch, yaw, roll). */
-	float mPitch, mYaw, mRoll;
+	float mPitch = 0.0f, mYaw = 0.0f, mRoll = 0.0f;
 
 	/** Reset the camera after every change. */
 	bool mViewDirty = true;
 
 	DirectX::XMFLOAT3 mPosition = { .0f, .0f, .0f };
-	DirectX::XMFLOAT4 mRotationQuat;									 //quaterion / identity 
-	DirectX::XMFLOAT3 mRight;													// = { 1.f, .0f, .0f };
-	DirectX::XMFLOAT3 mUp;														// = { .0f, 1.f, .0f };
-	DirectX::XMFLOAT3 mLook;													// = { .0f, .0f, 1.f };
+	DirectX::XMFLOAT4 mRotationQuat = { 0.0f, 0.0f, 0.0f, 1.0f };
+	DirectX::XMFLOAT3 mRight = { 1.0f, 0.0f, 0.0f };
+	DirectX::XMFLOAT3 mUp = { 0.0f, 1.0f, 0.0f };
+	DirectX::XMFLOAT3 mLook = { 0.0f, 0.0f, 1.0f };
 
 	// Cache frustum properties
 	float mNearZ = .0f;

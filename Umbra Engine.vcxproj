@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -18,13 +18,70 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Build\framework.h" />
+    <ClInclude Include="Build\Resource.h" />
+    <ClInclude Include="Build\stdafx.h" />
+    <ClInclude Include="Build\Targetver.h" />
+    <ClInclude Include="Math\MathHelper.h" />
+    <ClInclude Include="Source\Runtime\Engine\Classes\CameraController\CameraController.h" />
+    <ClInclude Include="Source\Runtime\Engine\Classes\Camera\Camera.h" />
+    <ClInclude Include="Source\Runtime\Engine\Classes\Engine\Engine.h" />
+    <ClInclude Include="Source\Runtime\Engine\Classes\FrameWork\Controller.h" />
+    <ClInclude Include="Source\Runtime\Engine\Classes\Renderer\Renderer.h" />
+    <ClInclude Include="Source\Runtime\Engine\Classes\Timer\Timer.h" />
+    <ClInclude Include="ThirdParty\DirectXMath\Extensions\DirectXMathAVX.h" />
+    <ClInclude Include="ThirdParty\DirectXMath\Extensions\DirectXMathAVX2.h" />
+    <ClInclude Include="ThirdParty\DirectXMath\Extensions\DirectXMathBE.h" />
+    <ClInclude Include="ThirdParty\DirectXMath\Extensions\DirectXMathF16C.h" />
+    <ClInclude Include="ThirdParty\DirectXMath\Extensions\DirectXMathFMA3.h" />
+    <ClInclude Include="ThirdParty\DirectXMath\Extensions\DirectXMathFMA4.h" />
+    <ClInclude Include="ThirdParty\DirectXMath\Extensions\DirectXMathSSE3.h" />
+    <ClInclude Include="ThirdParty\DirectXMath\Extensions\DirectXMathSSE4.h" />
+    <ClInclude Include="ThirdParty\DirectXMath\MatrixStack\DirectXMatrixStack.h" />
+    <ClInclude Include="ThirdParty\DirectXMath\SHMath\DirectXSH.h" />
+    <ClInclude Include="ThirdParty\DirectXMath\Stereo3D\Stereo3DMatrixHelper.h" />
+    <ClInclude Include="ThirdParty\DirectXMath\XDSP\XDSP.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Build\stdafx.cpp" />
+    <ClCompile Include="Math\MathHelper.cpp" />
+    <ClCompile Include="Source\Runtime\Engine\Private\CameraController\CameraController.cpp" />
+    <ClCompile Include="Source\Runtime\Engine\Private\Camera\Camera.cpp" />
+    <ClCompile Include="Source\Runtime\Engine\Private\Controller\Controller.cpp" />
+    <ClCompile Include="Source\Runtime\Engine\Private\Engine\Engine.cpp" />
+    <ClCompile Include="Source\Runtime\Engine\Private\Renderer\Renderer.cpp" />
+    <ClCompile Include="Source\Runtime\Engine\Private\Timer\Timer.cpp" />
+    <ClCompile Include="ThirdParty\DirectXMath\SHMath\DirectXSH.cpp" />
+    <ClCompile Include="ThirdParty\DirectXMath\SHMath\DirectXSHD3D11.cpp" />
+    <ClCompile Include="ThirdParty\DirectXMath\SHMath\DirectXSHD3D12.cpp" />
+    <ClCompile Include="ThirdParty\DirectXMath\Stereo3D\Stereo3DMatrixHelper.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ThirdParty\DirectXMath\SHMath\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\png\Logo1.png" />
+    <Image Include="Assets\png\Logo2.png" />
+    <Image Include="Build\small.ico" />
+    <Image Include="Build\Umbra Engine.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Build\Umbra Engine.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md" />
+    <None Include="Sandbox.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Assets\Shaders\Color_Axis.hlsl" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{4804f32d-5e98-452e-9498-72808820f9ff}</ProjectGuid>
-    <RootNamespace>UmberEngine</RootNamespace>
+    <ProjectGuid>{21f8851a-b6ea-47d3-a2bb-1c9dc360d45a}</ProjectGuid>
+    <RootNamespace>UmbraEngine</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>Umber Engine</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -125,68 +182,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClInclude Include="Build\Resource.h" />
-    <ClInclude Include="Build\Targetver.h" />
-    <ClInclude Include="Source\Runtime\Engine\Classes\CameraController\CameraController.h" />
-    <ClInclude Include="Source\Runtime\Engine\Classes\Camera\Camera.h" />
-    <ClInclude Include="Math\MathHelper.h" />
-    <ClInclude Include="Source\Runtime\Engine\Classes\Timer\Timer.h" />
-    <ClInclude Include="Source\Runtime\Engine\Classes\Engine\Engine.h" />
-    <ClInclude Include="Build\stdafx.h" />
-    <ClInclude Include="Source\Runtime\Engine\Classes\FrameWork\Controller.h" />
-    <ClInclude Include="Source\Runtime\Engine\Classes\Renderer\Renderer.h" />
-    <ClInclude Include="ThirdParty\DirectXMath\Extensions\DirectXMathAVX.h" />
-    <ClInclude Include="ThirdParty\DirectXMath\Extensions\DirectXMathAVX2.h" />
-    <ClInclude Include="ThirdParty\DirectXMath\Extensions\DirectXMathBE.h" />
-    <ClInclude Include="ThirdParty\DirectXMath\Extensions\DirectXMathF16C.h" />
-    <ClInclude Include="ThirdParty\DirectXMath\Extensions\DirectXMathFMA3.h" />
-    <ClInclude Include="ThirdParty\DirectXMath\Extensions\DirectXMathFMA4.h" />
-    <ClInclude Include="ThirdParty\DirectXMath\Extensions\DirectXMathSSE3.h" />
-    <ClInclude Include="ThirdParty\DirectXMath\Extensions\DirectXMathSSE4.h" />
-    <ClInclude Include="ThirdParty\DirectXMath\MatrixStack\DirectXMatrixStack.h" />
-    <ClInclude Include="ThirdParty\DirectXMath\SHMath\DirectXSH.h" />
-    <ClInclude Include="ThirdParty\DirectXMath\Stereo3D\Stereo3DMatrixHelper.h" />
-    <ClInclude Include="ThirdParty\DirectXMath\XDSP\XDSP.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Source\Runtime\Engine\Private\CameraController\CameraController.cpp" />
-    <ClCompile Include="Source\Runtime\Engine\Private\Camera\Camera.cpp" />
-    <ClCompile Include="Math\MathHelper.cpp" />
-    <ClCompile Include="Source\Runtime\Engine\Private\Controller\Controller.cpp" />
-    <ClCompile Include="Source\Runtime\Engine\Private\Timer\Timer.cpp" />
-    <ClCompile Include="Source\Runtime\Engine\Private\Engine\Engine.cpp" />
-    <ClCompile Include="Build\stdafx.cpp" />
-    <ClCompile Include="Source\Runtime\Engine\Private\Renderer\Renderer.cpp" />
-    <ClCompile Include="ThirdParty\DirectXMath\SHMath\DirectXSH.cpp" />
-    <ClCompile Include="ThirdParty\DirectXMath\SHMath\DirectXSHD3D11.cpp" />
-    <ClCompile Include="ThirdParty\DirectXMath\SHMath\DirectXSHD3D12.cpp" />
-    <ClCompile Include="ThirdParty\DirectXMath\Stereo3D\Stereo3DMatrixHelper.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="Build\UmberEngine.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="README.md" />
-    <None Include="Sandbox.md" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="ThirdParty\DirectXMath\SHMath\CMakeLists.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Assets\ico\small.ico" />
-    <Image Include="Assets\ico\UmberEngine.ico" />
-    <Image Include="Build\small.ico" />
-    <Image Include="Build\UmberEngine.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <CustomBuild Include="Assets\Shaders\Color_Axis.hlsl">
-      <FileType>Document</FileType>
-    </CustomBuild>
-  </ItemGroup>
-  <ItemGroup>
-    <FxCompile Include="x64\Debug\Assets\Shaders\Color_Axis.hlsl" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

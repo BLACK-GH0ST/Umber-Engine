@@ -164,43 +164,6 @@ Stick to this:
 * **Platform:** Win32
 * **Math:** DirectXMath
 
-No distractions.
-
----
-
-# 🧪 First Task (Let’s Start)
-
-I want you to begin with this:
-
-### ✅ Step 1
-
-Create a **Win32 window manually** (no frameworks)
-
-### ✅ Step 2
-
-Implement:
-
-* Message loop
-* Basic input detection (just key press logging)
-
-### ✅ Step 3
-
-Add a simple:
-
-* Game loop structure
-
----
-
-# 🧠 How We’ll Work (Important)
-
-I’m not going to dump everything at once.
-
-We’ll do this like a real engine dev:
-
-* You build
-* You show code / errors
-* I break it down deeply
-* Then we move forward
 
 ---
 
@@ -210,7 +173,7 @@ Since you liked *Umbra*, you could use:
 
 * **UmbraCore**
 * **Umbra Engine (dev build)**
-* **Umber Engine (your original)**
+* **Umbra Engine (your original)**
 
 ---
 

@@ -38,8 +38,8 @@ static void BuildGridVertices (std::vector<GridVertex>& outVerts, int halfLines,
 	}
 
 	// Add Y-axis (vertical) in green through the origin
-	outVerts.push_back ({ XMFLOAT3 (0, -halfLines * spacing, 0), XMFLOAT4 (0, 1, 0, 1) });
-	outVerts.push_back ({ XMFLOAT3 (0,  halfLines * spacing, 0), XMFLOAT4 (0, 1, 0, 1) });
+	//outVerts.push_back ({ XMFLOAT3 (0, -halfLines * spacing, 0), XMFLOAT4 (0, 1, 0, 1) });
+	//outVerts.push_back ({ XMFLOAT3 (0,  halfLines * spacing, 0), XMFLOAT4 (0, 1, 0, 1) });
 }
 
 static std::wstring GetExeDirectory ()
@@ -168,7 +168,7 @@ bool Renderer::Init (HWND hwnd, int backbufferWidth, int backbufferHeight)
 
 	// Build grid geometry
 	std::vector<GridVertex> verts;
-	BuildGridVertices (verts, 50, 1.0f);
+	BuildGridVertices (verts, 500, 1.0f);
 	mGridVertexCount = (UINT)verts.size ();
 
 	D3D11_BUFFER_DESC vbd = {};

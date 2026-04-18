@@ -39,11 +39,63 @@ IDC_UMBRAENGINE MENU
 BEGIN
     POPUP "&File"
     BEGIN
-        MENUITEM "E&xit",                IDM_EXIT
+      MENUITEM "&New", IDM_FILE_NEW
+      MENUITEM "&Open", IDM_FILE_OPEN
+      MENUITEM "&Save", IDM_FILE_SAVE
+      MENUITEM "Save &As", IDM_FILE_SAVE_AS
+      MENUITEM SEPARATOR
+      MENUITEM "E&xit", IDM_EXIT
     END
+    
+    POPUP "&Edit"
+    BEGIN
+      MENUITEM "&Undo", IDM_EDIT_UNDO
+      MENUITEM "&Redo", IDM_EDIT_REDO
+      MENUITEM SEPARATOR
+      MENUITEM "&Copy", IDM_EDIT_COPY
+      MENUITEM "&Paste", IDM_EDIT_PASTE
+      MENUITEM "&Delete", IDM_EDIT_DELETE
+    END
+    
+    POPUP "&Window"
+    BEGIN
+      MENUITEM "&Hierarchy", IDM_WINDOW_HIERARCHY
+      MENUITEM "&Inspector", IDM_WINDOW_INSPECTOR
+      MENUITEM "&Console", IDM_WINDOW_CONSOLE
+      MENUITEM "&Viewport", IDM_WINDOW_VIEWPORT
+    END
+    
+    POPUP "&Tools"
+    BEGIN
+      MENUITEM "&Options", IDM_TOOLS_OPTIONS
+      //MENUITEM "&Cascadeur", IDM_TOOLS_CASCADEUR
+      MENUITEM "&NodeCAD", IDM_TOOLS_NODECAD
+    END
+    
+    POPUP "&Build"
+    BEGIN
+      MENUITEM "&Compile", IDM_BUILD_COMPILE
+      MENUITEM "&Rebuild", IDM_BUILD_REBUILD
+      MENUITEM "&Run", IDM_BUILD_RUN
+    END
+    
+    POPUP "&Select"
+    BEGIN
+      MENUITEM "Select &All", IDM_SELECT_ALL
+      MENUITEM "Select &None", IDM_SELECT_NONE
+    END
+    
+    POPUP "&Actor"
+    BEGIN
+      MENUITEM "Create &Empty", IDM_ACTOR_CREATE_EMPTY
+      MENUITEM "Add &Cube", IDM_ACTOR_CUBE
+      MENUITEM "Add &Light", IDM_ACTOR_LIGHT
+      MENUITEM "Add &Camera", IDM_ACTOR_CAMERA
+    END
+    
     POPUP "&Help"
     BEGIN
-        MENUITEM "&About ...",           IDM_ABOUT
+      MENUITEM "&About", IDM_ABOUT
     END
 END
 

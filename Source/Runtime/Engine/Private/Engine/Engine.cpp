@@ -8,7 +8,7 @@
 #include "..\..\..\..\..\Build\Resource.h"
 #include "../../Classes/Camera/Camera.h"
 
-#define MAX_LOADSTRING 1000
+#define MAX_LOADSTRING 100
 
 class CameraController;
 

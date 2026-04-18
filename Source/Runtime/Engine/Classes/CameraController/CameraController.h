@@ -51,7 +51,7 @@ private:
   Camera* mCamera = nullptr;
 
   /** Mouse sensitivity for camera rotation. */
-  float mSensitivity = 0.002f;
+  float mSensitivity = 0.0002f;
 
   /** Movement speed of the camera. */
   float mMoveSpeed = 10.0f;

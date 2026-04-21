@@ -2,6 +2,7 @@
 // CPP headers
 #include "../../../../../Build/stdafx.h"
 #include <memory>
+#include <string>
 #include <Windowsx.h>
 
 #include "..\..\Classes\Engine/Engine.h"
@@ -26,6 +27,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
 
+    hInst = hInstance;
+
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
     LoadStringW(hInstance, IDC_UMBRAENGINE, szWindowClass, MAX_LOADSTRING);
      
@@ -40,6 +43,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+    //  Camera* cameracontroller;
+  
     switch (message)
     {
     case WM_COMMAND:
@@ -76,6 +81,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
         gEngineInstance.OnMouseMove (dx, dy);
       } break;
+
+    case WM_LBUTTONDOWN: gEngineInstance.OnMouseButton(true, true);
+        break;
+    case WM_LBUTTONUP:gEngineInstance.OnMouseButton (true, false);
+        break;
+    case WM_RBUTTONDOWN:gEngineInstance.OnMouseButton (false, true);
+        break;
+    case WM_RBUTTONUP:gEngineInstance.OnMouseButton (false, false);
+        break;
 
     case WM_KEYDOWN:
       gEngineInstance.OnKeyDown (wParam);
@@ -123,8 +137,8 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 
 
 namespace Umbra // Umbra Engine =>
-{
 
+{
   bool Engine::Init (HINSTANCE hInstance, int nCmdShow)
   {
     if(!Engine::InitWindow (hInstance, nCmdShow))
@@ -141,12 +155,15 @@ namespace Umbra // Umbra Engine =>
     mRenderer = std::make_unique<Renderer> ();
     if(!mRenderer->Init (m_hWnd, width, height))
     {
-      MessageBoxW (
-        m_hWnd,
-        L"Renderer initialization failed. The engine will keep running without rendering.\n\n"
-        L"Tip: if this happens when launching the exe directly, ensure Assets/Shaders are next to the exe or run from the repo root.",
-        L"Umbra Engine",
-        MB_OK | MB_ICONERROR);
+      std::wstring msg =
+        L"Renderer initialization failed. The engine will keep running without rendering.\n\n";
+      const wchar_t* detail = mRenderer->GetLastInitError ();
+      if(detail && detail[0] != L'\0')
+        msg += detail;
+      else
+        msg +=
+          L"Tip: if you launch the exe outside Visual Studio, keep the Assets folder next to the build output, or run from the repo root.";
+      MessageBoxW (m_hWnd, msg.c_str (), L"Umbra Engine", MB_OK | MB_ICONERROR);
       mRenderer.reset ();
     }
 
@@ -245,4 +262,16 @@ namespace Umbra // Umbra Engine =>
     if(mCameraController)
       mCameraController->OnMouseMove (dx, dy);
   }
+
+void Engine::OnMouseButton (bool left, bool down)
+{
+  if(!mCamera) return;
+  if(left)
+    mCamera->SetLMB (down);
+  else
+  {
+    mCamera->SetRMB (down);
+  }
+}
+
 }

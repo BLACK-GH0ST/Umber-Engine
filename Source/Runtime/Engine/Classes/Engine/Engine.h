@@ -76,6 +76,7 @@ namespace Umbra
 
     /** Handles mouse movement (dx, dy). */
     void OnMouseMove (float dx, float dy);
+    void OnMouseButton (bool left, bool down);
 
   private:
 

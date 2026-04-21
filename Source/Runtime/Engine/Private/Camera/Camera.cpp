@@ -141,6 +141,16 @@ void Camera::_LookAt_(FXMVECTOR pos, FXMVECTOR target, FXMVECTOR worldUp)
 	XMStoreFloat3(&mRight, R);
 	XMStoreFloat3(&mUp, U);
 
+	// Keep quaternion in sync with the orthonormal basis. UpdateViewMatrix() rebuilds
+	// mRight/mUp/mLook from mRotationQuat; without this, LookAt() appears to do nothing.
+	XMMATRIX basis = XMMATRIX (
+		mRight.x, mRight.y, mRight.z, 0.0f,
+		mUp.x, mUp.y, mUp.z, 0.0f,
+		mLook.x, mLook.y, mLook.z, 0.0f,
+		0.0f, 0.0f, 0.0f, 1.0f);
+	XMVECTOR q = XMQuaternionRotationMatrix (basis);
+	XMStoreFloat4 (&mRotationQuat, XMQuaternionNormalize (q));
+
 	mViewDirty = true;
 }
 
@@ -200,6 +210,19 @@ void Camera::Walk(float d)
 
 	mViewDirty = true;
 }
+
+void Camera::UpandDown (float d)
+{
+	XMVECTOR q = XMLoadFloat4 (&mRotationQuat);
+	XMVECTOR up = XMVector3Rotate (XMVectorSet (0.0f, 1.0f, 0.0f, 0.0f), q);
+
+	XMVECTOR pos = XMLoadFloat3 (&mPosition);
+	pos = XMVectorMultiplyAdd (XMVectorReplicate (d), up, pos);
+
+	XMStoreFloat3 (&mPosition, pos);
+	mViewDirty = true;
+}
+
 
 void Camera::Pitch(float angle) // Local X
 {

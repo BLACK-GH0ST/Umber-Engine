@@ -73,6 +73,7 @@ public:
 	//Strafe/walk the camera a distance d
 	void Strafe (float d);
 	void Walk (float d);
+	void UpandDown (float d);
 
 	//Rotate the camera
 	void Pitch (float angle);
@@ -87,7 +88,13 @@ public:
 		/** Updates camera state (if needed). */
 	void Update ();
 
+	// Getter and Setter for Left Mouse button 
+	void SetLMB (bool value) { btnLMB = value; }
+	bool GetLMB () const { return btnLMB; }
 
+	// Getter and Setter for Right Mouse button 
+	void SetRMB (bool value) { btnRMB = value; }
+	bool GetRMB () const { return btnRMB; }
 
 private:
 		/** Camera position in world space. */
@@ -107,7 +114,7 @@ private:
 
 	// Cache frustum properties
 	float mNearZ = .0f;
-	float mFarZ = .0f;
+	float mFarZ = 100.0f;
 	float mAspect = .0f;
 	float mFovY = .0f;
 	float mNearWindowHeight = .0f;
@@ -116,6 +123,10 @@ private:
 	// Cache View/Proj matrices.
 	DirectX::XMFLOAT4X4 mView = MathHelper::Identity4x4 ();
 	DirectX::XMFLOAT4X4 mProj = MathHelper::Identity4x4 ();
+
+		// Mouse button controls 
+	bool btnLMB = false;
+	bool btnRMB = false;
 
 };
 

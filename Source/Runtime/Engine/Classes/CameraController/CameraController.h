@@ -14,6 +14,9 @@
 **********************************************************************************************/
 
 #include "../FrameWork/Controller.h"
+#include "../../../../../Math/MathHelper.h"
+
+using namespace DirectX;
 
 class Camera;
 
@@ -55,6 +58,9 @@ private:
 
   /** Movement speed of the camera. */
   float mMoveSpeed = 10.0f;
+
+  /** last postion of the cam position */
+  DirectX::XMFLOAT3 mposition;
 
   /** Rotation values */
   float mYaw = 0.0f;

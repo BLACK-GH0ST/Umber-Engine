@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 /**********************************************************************************************
 *
@@ -11,7 +11,9 @@
 **********************************************************************************************/
 
 #include <d3d11.h>
+#include <string>
 #include <wrl/client.h>
+#include <DirectXMath.h>
 
 class Camera;
 
@@ -23,6 +25,9 @@ public:
 
 	bool Init (HWND hwnd, int backbufferWidth, int backbufferHeight);
 
+	/** Human-readable detail from the last failed Init (empty after success). */
+	const wchar_t* GetLastInitError () const { return m_lastInitError.c_str (); }
+
 	void BeginFrame (float r = 0.05f, float g = 0.05f, float b = 0.08f, float a = 1.0f);
 	void EndFrame ();
 
@@ -32,6 +37,13 @@ private:
 	struct VSConstants
 	{
 		float viewProj[16];
+
+		DirectX::XMFLOAT3 cameraPos;
+		float nearFog;                 
+		
+		float farFog;                 
+		DirectX::XMFLOAT3 fogColor;   
+
 	};
 
 private:
@@ -47,5 +59,7 @@ private:
 
 	Microsoft::WRL::ComPtr<ID3D11Buffer> mGridVB;
 	UINT mGridVertexCount = 0;
+
+	std::wstring m_lastInitError;
 };
 

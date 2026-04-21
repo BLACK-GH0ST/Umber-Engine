@@ -22,4 +22,5 @@ public:
    * @param deltaTime - Time elapsed since last frame.
    */
   virtual void Update (float deltaTime) = 0;
+
 };
